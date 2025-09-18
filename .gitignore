@@ -1,0 +1,64 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.eggs
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Virtual environment
+.env/
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Editors
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# User-specific configuration files
+*.ini
+*.cfg
+*.conf
+
+# Database files
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+ffmpeg/

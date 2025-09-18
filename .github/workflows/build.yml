@@ -1,0 +1,73 @@
+name: Build AudioConverter
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller pyqt5
+
+      # -----------------------------
+      # Download ffmpeg dynamically
+      # -----------------------------
+      - name: Download ffmpeg (Windows)
+        run: |
+          curl -L -o ffmpeg.zip https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip
+          powershell -Command "Expand-Archive ffmpeg.zip -DestinationPath ffmpeg"
+
+      - name: Build Windows EXE
+        run: |
+          pyinstaller --onefile --noconsole audio_converter.py
+          
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: AudioConverter-Windows
+          path: dist/audio_converter.exe
+
+  build_macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller pyqt5
+
+      # -----------------------------
+      # Download ffmpeg dynamically
+      # -----------------------------
+      - name: Download ffmpeg (Mac)
+        run: |
+          curl -L -o ffmpeg.zip https://evermeet.cx/ffmpeg/zip
+          unzip ffmpeg.zip -d ffmpeg/bin
+
+      - name: Build Mac APP
+        run: |
+          pyinstaller --onefile --noconsole audio_converter.py
+          
+      - name: Upload Mac artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: AudioConverter-Mac
+          path: dist/audio_converter.app
