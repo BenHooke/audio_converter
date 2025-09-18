@@ -33,7 +33,7 @@ jobs:
       # 5️⃣ Build executable with PyInstaller
       - name: Build Windows EXE
         run: |
-          pyinstaller --onefile --noconsole audio_converter.py
+          pyinstaller --onefile --noconsole main.py
 
       # 6️⃣ Copy ffmpeg folder into dist for plug-and-play
       - name: Copy ffmpeg into dist
@@ -68,13 +68,14 @@ jobs:
       # 4️⃣ Download ffmpeg dynamically
       - name: Download ffmpeg (Mac)
         run: |
-          curl -L -o ffmpeg.zip https://evermeet.cx/ffmpeg/zip
-          unzip ffmpeg.zip -d ffmpeg/bin
+            mkdir -p ffmpeg/bin
+            curl -L -o ffmpeg/bin/ffmpeg https://evermeet.cx/ffmpeg/ffmpeg-5.1.2.zip
+            chmod +x ffmpeg/bin/ffmpeg
 
       # 5️⃣ Build executable with PyInstaller
       - name: Build Mac APP
         run: |
-          pyinstaller --onefile --noconsole audio_converter.py
+          pyinstaller --onefile --noconsole main.py
 
       # 6️⃣ Copy ffmpeg folder into dist for plug-and-play
       - name: Copy ffmpeg into dist
